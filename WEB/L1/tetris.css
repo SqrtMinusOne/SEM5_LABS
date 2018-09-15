@@ -1,0 +1,33 @@
+#main{
+    margin: 0 auto;
+    width: 640px;
+    height: 480px;
+    text-align: center;
+}
+#left{
+    width: 300px;
+    height: 600px;
+    float: left;
+    text-align: left;
+}
+#head{
+    font-size: 48px;
+    font-family: "Times New Roman", serif;
+    font-weight: bold;
+    border-bottom-width: 20px;
+}
+#rules{
+    margin-top: 20px;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+#right{
+    width: 300px;
+    height: 600px;
+    float: left;
+}
+#tetrisfield{
+    width: 300px;
+    height: 600px;
+    border: 4px double black;
+}
