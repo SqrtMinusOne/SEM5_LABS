@@ -1,9 +1,9 @@
 class Canvas {
 
-    constructor() {
+    constructor(columns, rows) {
         this.cnv = document.getElementById("tetrisfield");
         this.ctx = this.cnv.getContext('2d');
-        this.columns = 10; this.rows = 20;
+        this.columns = columns; this.rows = rows;
         let dpi = window.devicePixelRatio;
         let style_height = +getComputedStyle(this.cnv).getPropertyValue("height").slice(0, -2);
         let style_width = +getComputedStyle(this.cnv).getPropertyValue("width").slice(0, -2);
@@ -15,19 +15,33 @@ class Canvas {
         this.blockHeight = Math.floor(this.height/this.rows);
     }
 
-    drawDummy() {
-        this.ctx.fillRect(25,25,100,100);
-        this.ctx.clearRect(45,45,60,60);
-    }
-
     drawRect(column, row, color){
         let x1 = column*this.blockWidth;
         let y1 = row*this.blockHeight;
         let border = 3;
         this.ctx.fillStyle="#000000";
-        this.ctx.fillRect(x1, y1, this.blockWidth, this.blockHeight);
+        this.ctx.fillRect(x1, y1, this.blockWidth + border, this.blockHeight + border);
         this.ctx.fillStyle = color;
-        this.ctx.fillRect(x1 + border, y1 + border, this.blockWidth - border*2, this.blockHeight - border*2);
+        this.ctx.fillRect(x1 + border, y1 + border, this.blockWidth - border, this.blockHeight - border);
     }
 
+    render(board, figure){
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        for (let i = 0; i < this.columns; i++){
+            for (let j = 0; j < this.rows; j++){
+                if (board[i][j])
+                    this.drawRect(i, j, board[i][j]);
+            }
+        }
+        if (figure){
+            let matr = figure.makeMatr();
+            for (let i = 0; i < 4; i++){
+                for (let j = 0; j < 4; j++){
+                    if (matr[i][j] == 1)
+                        this.drawRect(i + figure.x, j + figure.y, figure.color);
+                }
+            }
+        }
+    }
 }
+
