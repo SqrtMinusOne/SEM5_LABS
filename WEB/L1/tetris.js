@@ -10,10 +10,11 @@ var next_figure = null; //Next figure
 var canvas = null; //Canvas
 var next_canvas = null; //Next figure canvas
 var render_interval = null;
-
+var user_name = null;
 
 function updateInfo(){
-    document.getElementById("info").innerHTML = "Login: " + localStorage["tetris.username"] +
+    user_name = localStorage["tetris.username"]
+    document.getElementById("info").innerHTML = "Login: " + user_name +
         "<br> Lines: " + lines + "<br>Level: " + level + "<br>Score: " + score +
         "<br> Record: " + record;
 }
@@ -189,8 +190,30 @@ function startRender(speed){
     render_interval = setInterval(() => {moveFigure(0, 1)}, speed);
 }
 
+function resetRecords(){
+    localStorage.removeItem("tetris.records");
+}
+
 function gameOver(){
     alert("Game over! Score: " + score);
+    let records = localStorage["tetris.records"];
+    if (!records)
+        records = "Records\n";
+    records = records + user_name + ": " + score + "\n";
+    let recs = records.split("\n");
+    let rec_list = [];
+    for (i=1; i<recs.length-1; i++){
+        let name = recs[i].split(": ")[0];
+        let score = recs[i].split(": ")[1]
+        rec_list.push({name, score});
+    }
+    rec_list.sort((a,b) => b.score - a.score);
+    records = "Records\n";
+    for (i = 0; i < rec_list.length && i < 10; i++){
+        records = records + rec_list[i].name + ": " + rec_list[i].score + "\n";
+    }
+    localStorage["tetris.records"] = records;
+    alert(records);
     newGame();
 }
 

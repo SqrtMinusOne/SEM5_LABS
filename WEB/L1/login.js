@@ -1,4 +1,3 @@
 function saveName() {
-    let name = document.getElementById("name").value;
-    localStorage["tetris.username"] = name;
+    localStorage["tetris.username"] = document.getElementById("name").value;
 }
