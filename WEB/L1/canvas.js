@@ -1,7 +1,7 @@
 class Canvas {
 
-    constructor(columns, rows) {
-        this.cnv = document.getElementById("tetrisfield");
+    constructor(columns, rows, id) {
+        this.cnv = document.getElementById(id);
         this.ctx = this.cnv.getContext('2d');
         this.columns = columns; this.rows = rows;
         let dpi = window.devicePixelRatio;
@@ -27,10 +27,12 @@ class Canvas {
 
     render(board, figure){
         this.ctx.clearRect(0, 0, this.width, this.height);
-        for (let i = 0; i < this.columns; i++){
-            for (let j = 0; j < this.rows; j++){
-                if (board[i][j])
-                    this.drawRect(i, j, board[i][j]);
+        if (board) {
+            for (let i = 0; i < this.columns; i++) {
+                for (let j = 0; j < this.rows; j++) {
+                    if (board[i][j])
+                        this.drawRect(i, j, board[i][j]);
+                }
             }
         }
         if (figure){

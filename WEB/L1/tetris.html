@@ -12,13 +12,19 @@
         <div id="head" align="center">
             TETRIS
         </div>
-        <br>Korytov Pavel, 6304<br>
-        <div id="rules">
-            Arrow Up - turn<br>
-            Arrow Left/Right - move<br>
-            Arrow Down - down<br>
+        <div id = "texts">
+            Korytov Pavel, 6304<br>
+            <div id="rules">
+                Arrow Up - turn<br>
+                Arrow Left/Right - move<br>
+                Arrow Down - down<br>
+            </div>
+            <div id="info">
+            </div>
         </div>
-        <div id="info">
+        <div id="next">
+            Next figure: <br>
+            <canvas id="nextfigure"></canvas>
         </div>
     </div>
     <div id="right">
@@ -27,6 +33,9 @@
 </div>
 
 </body>
+<audio autoplay loop src="main_theme.ogg"></audio>
+<audio src="level_up.ogg" id="level_up"></audio>
+<audio src="line.ogg" id="line"></audio>
 <script src="canvas.js"></script>
 <script src="figure.js"></script>
 <script src="tetris.js"></script>

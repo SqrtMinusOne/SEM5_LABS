@@ -1,14 +1,21 @@
 var columns = 10, rows = 20; //Size of tetris
 var score = 0; //Score
+var record = 0; //Record
 var lines = 0; //Lines
-var level = 3; //Current level
+var lines_level = 0; //Lines to next level
+var level = 0; //Current level
 var board = []; //Board
 var figure = null; //Current figure
-var canvas = null;
+var next_figure = null; //Next figure
+var canvas = null; //Canvas
+var next_canvas = null; //Next figure canvas
+var render_interval = null;
+
 
 function updateInfo(){
     document.getElementById("info").innerHTML = "Login: " + localStorage["tetris.username"] +
-        "<br> Lines: " + lines + "<br>Score: " + score + "<br>Level: " + level;
+        "<br> Lines: " + lines + "<br>Level: " + level + "<br>Score: " + score +
+        "<br> Record: " + record;
 }
 
 function keyListener(event) {
@@ -86,8 +93,14 @@ function saveFigure() {
 }
 
 function newFigure() {
-    let fig = Figure.makeFigure(Math.floor(Math.random() * 7));
-    fig.color = "#" + Math.random().toString(16).slice(2, 8);
+    let fig = next_figure;
+    next_figure = Figure.makeFigure(Math.floor(Math.random() * 7));
+    next_figure.color = "#" + Math.random().toString(16).slice(2, 8);
+    next_canvas.render(null, next_figure);
+    if (!fig) {
+        fig = Figure.makeFigure(Math.floor(Math.random() * 7));
+        fig.color = "#" + Math.random().toString(16).slice(2, 8);
+    }
     fig.x = Math.floor(Math.floor(Math.random() * (columns - 3)));
     success = true;
     matr = fig.makeMatr();
@@ -129,13 +142,25 @@ function checkLines() {
         }
     }
     if (remove) {
+        document.getElementById("line").play();
+        lines++;
+        lines_level++;
         score = score + level * 100;
+        if (lines_level > 10){
+            document.getElementById("level_up").play();
+            lines_level = 0;
+            level++;
+            startRender(1000/level);
+        }
+        if (record < score)
+            record = score;
         checkLines();
     }
 }
 
 function init(){
-    canvas = new Canvas(columns, rows);
+    canvas = new Canvas(columns, rows, "tetrisfield");
+    next_canvas = new Canvas(4, 4, "nextfigure");
     document.addEventListener('keydown', keyListener);
     newGame();
 }
@@ -147,10 +172,21 @@ function newGame(){
             board[i][j] = 0;
         }
     }
+    score = 0;
+    level = 1;
+    lines_level = 0;
     updateInfo();
     figure = newFigure();
     updateAll();
-    setInterval(() => {moveFigure(0, 1)}, 1000/level);
+    startRender(1000 - level*100);
+}
+
+function startRender(speed){
+    if (speed <= 0)
+        speed = 100;
+    if (render_interval)
+        clearInterval(render_interval);
+    render_interval = setInterval(() => {moveFigure(0, 1)}, speed);
 }
 
 function gameOver(){
