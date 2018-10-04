@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>553</width>
-    <height>510</height>
+    <width>792</width>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>ФОИТ Лаб1 Корытов Павел 6304</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -55,13 +55,6 @@
            <item>
             <widget class="QTextEdit" name="besselResultsEdit"/>
            </item>
-           <item>
-            <widget class="QPushButton" name="besselPlotButton">
-             <property name="text">
-              <string>Построить</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>
@@ -75,38 +68,6 @@
         <item>
          <widget class="QFrame" name="speedsFrame">
           <layout class="QVBoxLayout" name="speedsGraphLayout"/>
-         </widget>
-        </item>
-        <item>
-         <widget class="QFrame" name="speedsControlFrame">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>40</height>
-           </size>
-          </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QPushButton" name="speedsPlotButton">
-             <property name="text">
-              <string>Построить</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
          </widget>
         </item>
        </layout>
@@ -135,9 +96,15 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="radiusEdit">
-           <property name="text">
-            <string>0.0092</string>
+          <widget class="QDoubleSpinBox" name="radiusSpinBox">
+           <property name="decimals">
+            <number>4</number>
+           </property>
+           <property name="singleStep">
+            <double>0.000100000000000</double>
+           </property>
+           <property name="value">
+            <double>0.009200000000000</double>
            </property>
           </widget>
          </item>
@@ -149,9 +116,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="epsEdit">
-           <property name="text">
-            <string>7.1</string>
+          <widget class="QDoubleSpinBox" name="epsSpinBox">
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>7.100000000000000</double>
            </property>
           </widget>
          </item>
@@ -163,7 +133,7 @@
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>100</height>
+          <height>180</height>
          </size>
         </property>
         <property name="title">
@@ -173,21 +143,71 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>ω=2π*10^9*k</string>
+            <string>ω=2π*10^9*coef</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>k</string>
+            <string>coef</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="coefEdit">
+          <widget class="QDoubleSpinBox" name="coefSpinBox">
+           <property name="maximum">
+            <double>1000.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>70.000000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>70</string>
+            <string>Точность</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="precisionSpinBox">
+           <property name="maximum">
+            <number>100000</number>
+           </property>
+           <property name="value">
+            <number>10000</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>Параметры построения</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+          <widget class="QPushButton" name="besselPlotButton">
+           <property name="text">
+            <string>Построить</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="plotSpeedsCheckBox">
+           <property name="text">
+            <string>Построить скорости</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="autoUpdateCheckBox">
+           <property name="text">
+            <string>Автообновление</string>
            </property>
           </widget>
          </item>
@@ -203,7 +223,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>553</width>
+     <width>792</width>
      <height>23</height>
     </rect>
    </property>

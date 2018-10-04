@@ -4,13 +4,13 @@ from scipy import special
 from scipy import optimize
 import math
 from scipy import constants
-
+import numpy as np
 
 class Bessel:
-
     eps = 7.1
     R = 0.92e-2
-    omg = 2 * constants.pi * 10 ** 9 * 60
+    omg = 2 * constants.pi * 10 ** 9 * 70
+    precision = 10000
 
     def __init__(self):
         self.votn_rng = []
@@ -18,10 +18,11 @@ class Bessel:
         self.votn_roots = []
         self.roots = []
 
-    def set_params(self, eps, R, coef):
+    def set_params(self, eps, R, coef, precision):
         self.eps = eps
         self.R = R
         self.omg = 2 * constants.pi * 10 ** 9 * coef
+        self.precision = precision
 
     def k(self, omg, votn):
         t = self.eps - 1 / votn ** 2
@@ -46,14 +47,15 @@ class Bessel:
         return a
 
     def check_omg(self):
-        i_rng = range(0, 1000)
+        i_rng = np.geomspace(1, 1000, self.precision)
+        i_rng = [i-1 for i in i_rng]
         self.votn_rng = [1 / math.sqrt(self.eps) + 4 / 1000 * i for i in i_rng]
         self.bessel_rng = [self.jfunc(i) for i in self.votn_rng]
         root_intervals = self.get_intervals(self.votn_rng, self.bessel_rng)
         if len(root_intervals) == 0:
             raise RuntimeError("No roots for function were found")
         self.votn_roots = [optimize.bisect(self.jfunc, i[0], i[1]) for i in root_intervals]
-        res = "Bessel function roots:\n"
+        res = "Relative velocities:\n" + "Root number: " + str(len(self.votn_roots)) + "\n"
         for i in range(len(self.votn_roots)):
             res = res +  str(i) + ": " + str(self.votn_roots[i]) + "\n"
         if len(self.votn_roots) >= 10:
@@ -61,7 +63,7 @@ class Bessel:
         return res
 
     def get_roots(self):
-        j0_rng = mlab.frange(0.0, 40.0, 0.1)
+        j0_rng = np.linspace(0, 40, 400)
         j0_value = [special.j0(i) for i in j0_rng]
         j0_interval = Bessel.get_intervals(j0_rng, j0_value, 10)
         if len(j0_interval) == 0:
@@ -101,6 +103,7 @@ class Speeds:
         else:
             return omg / math.sqrt(znam)
 
+
     @staticmethod
     def v_gr(omg, v_p):
         if v_p[0] * v_p[1] != 0:
@@ -111,7 +114,8 @@ class Speeds:
 
     def plot_velocities(self, figure):
         axes = figure.add_axes([0.08, 0.1, 0.87, 0.8])
-        omg_range = mlab.frange(self.bsl.omg/1600, self.bsl.omg * 2.5, self.bsl.omg / 6400)
+        omg_temp = 2 * constants.pi * 10 ** 9 * 70
+        omg_range = np.linspace(omg_temp/1600, omg_temp * 2.5, self.bsl.precision)
         ylim_max = 4e8
         axes.set_ylim(0, ylim_max)
         axes.set_xlim(right=1e12)
@@ -123,5 +127,5 @@ class Speeds:
                                                  [self.v_p(omg_range[i], root),
                                                   self.v_p(omg_range[i + 1], root)])
                                        for i in range(len(omg_range) - 1)])
-
+    s
 
