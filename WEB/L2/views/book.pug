@@ -1,0 +1,34 @@
+extends main_template
+
+block content
+    div(class='w3-border')
+        div(class='w3-container w3-blue w3-margin-bottom')
+            h3
+                span Book:
+                b=" " + book["name"] + " "
+                span by
+                b=" " + book["author"]
+        form(class='w3-container')
+            label Author
+            input(class='w3-input', type='text', value=book["author"])
+            label Name
+            input(class='w3-input', type='text', value=book["name"])
+            label Publication Date
+            input(class='w3-input', type='date', value=book["publish_date"])
+        div(class='w3-container')
+            h4 Readers:
+            if (Object.keys(book["readers"]).length === 0)
+                p(class='w3-panel') No readers
+            else
+                table(class='w3-table-all')
+                    tr
+                        th Name
+                        th Date of return
+                    each reader in book["readers"]
+                        td=reader["name"]
+                        td=reader["date_of_return"]
+
+block buttons
+    button(class='w3-bar-item w3-button w3-green') Save
+    button(class='w3-bar-item w3-button w3-blue') Add reader
+    button(class='w3-bar-item w3-button w3-red') Delete

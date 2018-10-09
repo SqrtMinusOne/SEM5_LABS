@@ -1,0 +1,16 @@
+html
+    head
+        link(rel='stylesheet', href='/stylesheets/w3.css', type='text/css')
+        title Library - #{title}
+        block scripts
+    body
+        div(class='w3-bar w3-red w3-border-bottom w3-margin-bottom')
+            div(class='w3-bar-item')
+                h1 Library
+        div(class='w3-sidebar w3-bar-block w3-border-right' style="width:20%")
+            a(href='/' class='w3-bar-item w3-button') Login
+            a(href='/index' class='w3-bar-item w3-button w3-margin-bottom') Index
+            div(class='w3-border-bottom')
+                block buttons
+        div(class='w3-container' style="margin-left:20%")
+            block content

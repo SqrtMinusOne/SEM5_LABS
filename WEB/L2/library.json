@@ -1,0 +1,26 @@
+{
+  "0":
+  {
+    "author": "Karl Marx",
+    "name": "Das Kapital",
+    "number": 1,
+    "number_taken": 0,
+    "publish_date": "2000-01-01",
+    "readers": {}
+  },
+  "1":
+  {
+    "author": "Vladimir Lenin",
+    "name": "Imperialism as the last form of capitalism",
+    "number": 2,
+    "number_taken": 1,
+    "publish_date": "1956-08-06",
+    "readers":{
+      "0":
+      {
+        "name": "Leonid Brezhnev",
+        "date_of_return": "2018-12-31"
+      }
+    }
+  }
+}
