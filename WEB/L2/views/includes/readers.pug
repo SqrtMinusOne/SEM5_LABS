@@ -1,0 +1,45 @@
+
+if (book["readers"].length === 0)
+    p(class='w3-panel w3-padding-16') No readers
+else
+    div(class='w3-panel')="Number: " + book["readers"].length
+    table(class='w3-table-all')
+        tr
+            th Name
+            th Date of return
+            th Delete
+        -for (var i = 0; i < book["readers"].length; i++){
+            -var reader=book["readers"][i]
+            tr
+                td=reader["name"]
+                td=reader["date_of_return"]
+                td
+                    button(onclick='deleteReader(' + id + ', ' + i + ')', class='w3-button w3-red w3-border') Delete
+        -}
+div(class='w3-modal w3-container', id="reader_dialog_")
+    div(class='w3-modal-content')
+        span(onclick='closeReaderDialog()', class='w3-button w3-display-topright') &times
+        div(class='w3-panel')
+            form
+                div(class='w3-container w3-margin-bottom')
+                    h4 Add reader
+                div(class='w3-container')
+                    b Name
+                    input(id='reader_name', class='w3-input', type='name')
+                    b Date of return
+                    input(id='return_date', class='w3-input', type='date')
+                    button(class='w3-button w3-green w3-margin-top', onclick='addReaderHere(' + id + ')') Add
+
+script.
+    function showReaderDialog() {
+        document.getElementById("reader_dialog_").style.display='block';
+    }
+    function closeReaderDialog(){
+        document.getElementById("reader_dialog_").style.display='none';
+    }
+    function addReaderHere(id){
+        let reader={}
+        reader["name"] = document.getElementById('reader_name').value;
+        reader["date_of_return"] = document.getElementById('return_date').value;
+        addReader(id, reader);
+    }

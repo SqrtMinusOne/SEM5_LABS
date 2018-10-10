@@ -1,7 +1,14 @@
 const express = require("express");
 const server = express();
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+
+server.use(cookieParser());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 const routes = require("./routes");
-server.use('/public', express.static('public'));
+
+server.use('/javascript', express.static('javascript'));
 server.use('/stylesheets', express.static('stylesheets'));
 server.set("view engine", "pug");
 server.set("views", `./views`);

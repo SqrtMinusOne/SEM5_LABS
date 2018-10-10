@@ -8,46 +8,40 @@ block scripts
         function closeReaders(i){
             document.getElementById("reader_info_" + i).style.display='none';
         }
+        function deleteBook(i) {
+
+        }
+    script(src='/javascript/books.js')
 block content
-    -for(var i = 0; i < Object.keys(library).length; i++) {
-        -var readers = library[Object.keys(library)[i]]["readers"]
-        div(class='w3-modal', id="reader_info_" + i)
+    -for(var id = 0; id < library.length; id++) {
+        -var book = library[id]
+        div(class='w3-modal', id="reader_info_" + id)
             div(class='w3-modal-content')
-                span(onclick='closeReaders(' + i + ')', class='w3-button w3-display-topright') &times
-                if (Object.keys(readers).length === 0)
-                    p(class='w3-panel w3-padding-16') Читателей нет
-                else
-                    table(class='w3-table-all')
-                        tr
-                            th Name
-                            th Date of return
-                        each reader in readers
-                            td=reader["name"]
-                            td=reader["date_of_return"]
+                span(onclick='closeReaders(' + id + ')', class='w3-button w3-display-topright') &times
+                include includes/readers
     -}
     table(class='w3-table-all')
         tr
             th Author
             th Name
             th All/taken
-            th Publish date
+            th Publication date
             th Reader info
             th Book info
             th Remove
-        -for(var i = 0; i < Object.keys(library).length; i++) {
-            -var book = library[Object.keys(library)[i]]
+        -for(var i = 0; i < library.length; i++) {
+            -var book = library[i]
             tr
                 td=book["author"]
                 td=book["name"]
-                td=book["number"] + "/" + book["number_taken"]
+                td=book["number"] + "/" + book["readers"].length
                 td=book["publish_date"]
                 td
                     button(onclick='showReaders(' + i + ');', class='w3-button w3-green w3-border') Reader info
                 td
                     a(href='/book/' + i, class='w3-button w3-orange w3-border') Book info
                 td
-                    button(onclick='', class='w3-button w3-red w3-border') Remove
+                    button(onclick='deleteBook(' + i + ')', class='w3-button w3-red w3-border') Delete
         -}
-
 block buttons
-    button(class='w3-bar-item w3-button w3-blue') Add book
+    a(class='w3-bar-item w3-button w3-blue', href="/book/" + library.length) Add book
