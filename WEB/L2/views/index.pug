@@ -15,33 +15,43 @@ block scripts
 block content
     -for(var id = 0; id < library.length; id++) {
         -var book = library[id]
-        div(class='w3-modal', id="reader_info_" + id)
+        div(class='w3-modal w3-animate-zoom', id="reader_info_" + id)
             div(class='w3-modal-content')
                 span(onclick='closeReaders(' + id + ')', class='w3-button w3-display-topright') &times
                 include includes/readers
     -}
-    table(class='w3-table-all')
-        tr
-            th Author
-            th Name
-            th All/taken
-            th Publication date
-            th Reader info
-            th Book info
-            th Remove
-        -for(var i = 0; i < library.length; i++) {
-            -var book = library[i]
+    div(class='w3-panel w3-border')=label
+    if library.length === 0
+        div(class='w3-panel') No books
+    else
+        table(class='w3-table-all')
             tr
-                td=book["author"]
-                td=book["name"]
-                td=book["number"] + "/" + book["readers"].length
-                td=book["publish_date"]
-                td
-                    button(onclick='showReaders(' + i + ');', class='w3-button w3-green w3-border') Reader info
-                td
-                    a(href='/book/' + i, class='w3-button w3-orange w3-border') Book info
-                td
-                    button(onclick='deleteBook(' + i + ')', class='w3-button w3-red w3-border') Delete
-        -}
+                th Author
+                th Name
+                th All/taken
+                th Expired
+                th Publication date
+                th Reader info
+                th Book info
+                th Remove
+            -for(var i = 0; i < library.length; i++) {
+                -var book = library[i]
+                tr
+                    td=book["author"]
+                    td=book["name"]
+                    td=book["number"] + "/" + book["readers"].length
+                    td=book["expired"]
+                    td=book["publish_date"]
+                    td
+                        button(onclick='showReaders(' + i + ');', class='w3-button w3-green w3-border') Reader info
+                    td
+                        a(href='/book/' + i, class='w3-button w3-orange w3-border') Book info
+                    td
+                        button(onclick='deleteBook(' + i + ')', class='w3-button w3-red w3-border') Delete
+            -}
 block buttons
     a(class='w3-bar-item w3-button w3-blue', href="/book/" + library.length) Add book
+    br
+    a(class='w3-bar-item w3-button w3-orange', href="/index") Show all
+    a(class='w3-bar-item w3-button w3-green', href="/index/available") Show available
+    a(class='w3-bar-item w3-button w3-red', href="/index/expired") Show expired

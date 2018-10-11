@@ -23,7 +23,7 @@ block content
                 input(id = 'name_input', class='w3-input', type='text', value=book["name"])
                 b Publication Date
                 input(id = 'date_input', class='w3-input', type='date', value=book["publish_date"])
-                b Number available
+                b Number in the library
                 input(id = 'number_input', class='w3-input', type='number', value=book["number"])
         div(class='w3-border w3-round-xlarge w3-margin')
             div(class='w3-container w3-blue w3-round-xlarge')
@@ -46,5 +46,6 @@ block scripts
             book_update_info["publish_date"] = document.getElementById('date_input').value;
             book_update_info["number"] = document.getElementById('number_input').value;
             book_update_info["id"] = document.getElementById(`id_input`).value;
+            book_update_info["readers"] = [] //DUMMY
             saveBook(book_update_info)
         }

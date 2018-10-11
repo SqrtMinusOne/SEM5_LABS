@@ -12,11 +12,14 @@ else
             -var reader=book["readers"][i]
             tr
                 td=reader["name"]
-                td=reader["date_of_return"]
+                if new Date() > new Date(reader["date_of_return"])
+                    td(class='w3-red')=reader["date_of_return"]
+                else
+                    td=reader["date_of_return"]
                 td
                     button(onclick='deleteReader(' + id + ', ' + i + ')', class='w3-button w3-red w3-border') Delete
         -}
-div(class='w3-modal w3-container', id="reader_dialog_")
+div(class='w3-modal w3-container w3-animate-zoom', id="reader_dialog_")
     div(class='w3-modal-content')
         span(onclick='closeReaderDialog()', class='w3-button w3-display-topright') &times
         div(class='w3-panel')
