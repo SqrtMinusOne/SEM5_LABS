@@ -1,0 +1,51 @@
+extends main_template
+
+block content
+    div(class='w3-border w3-round-xlarge')
+        div(class='w3-container w3-blue w3-margin-bottom w3-round-xlarge ')
+            h3
+                if (book["name"] && book["author"])
+                    span Book:
+                    b=" " + book["name"] + " "
+                    span by
+                    b=" " + book["author"]
+                else
+                    span New book
+        form(class='w3-border w3-round-xlarge w3-margin')
+            div(class='w3-container w3-blue w3-margin-bottom w3-round-xlarge')
+                h4 Edit book info
+            div(class='w3-container')
+                b Id
+                input(id='id_input', class='w3-input', type='number', value=id, disabled='true')
+                b Author
+                input(id ='author_input', class='w3-input', type='text', value=book["author"])
+                b Name
+                input(id = 'name_input', class='w3-input', type='text', value=book["name"])
+                b Publication Date
+                input(id = 'date_input', class='w3-input', type='date', value=book["publish_date"])
+                b Number in the library
+                input(id = 'number_input', class='w3-input', type='number', value=book["number"])
+        div(class='w3-border w3-round-xlarge w3-margin')
+            div(class='w3-container w3-blue w3-round-xlarge')
+                h4 Readers
+            div(class='w3-container')
+                include includes/readers
+
+block buttons
+    button(class='w3-bar-item w3-button w3-green', onclick="saveBookHere()") Save
+    button(class='w3-bar-item w3-button w3-blue', onclick="showReaderDialog()") Add reader
+    button(class='w3-bar-item w3-button w3-red', onclick='deleteBook(' + id + ')') Delete
+
+block scripts
+    script(src='/javascript/books.js')
+    script.
+        function saveBookHere() {
+            let book_update_info = {};
+            book_update_info["name"] = document.getElementById('name_input').value;
+            book_update_info["author"] = document.getElementById('author_input').value;
+            book_update_info["publish_date"] = document.getElementById('date_input').value;
+            book_update_info["number"] = document.getElementById('number_input').value;
+            book_update_info["id"] = document.getElementById(`id_input`).value;
+            book_update_info["readers"] = [] //DUMMY
+            saveBook(book_update_info)
+        }
