@@ -1,0 +1,38 @@
+html
+    head
+        title Аукцион картин
+        link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/style.min.css')
+
+    body(class='body_container')
+        nav(class='navbar navbar-expand-sm navbar-dark main_navbar')
+            a(class='navbar-brand' href="#") Аукцион картин
+            button( class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_collapse"
+            aria-controls="main_collapse" aria-expanded="false" aria-label="Toggle navigation")
+                span(class="navbar-toggler-icon")
+            div(class='navbar-collapse collapse' id="main_collapse")
+                -var button_params = 'btn col-sm link'
+                -var item_params = 'nav-item mr-2 my-1'
+                ul(class='navbar-nav mr-auto')
+                    li(class=item_params)
+                        a(class=button_params href="/")
+                            img(src="/res/icons/folder.png" class='link_img')
+                            span Перечень картин
+                    li(class=item_params)
+                        a(class=button_params)
+                            img(src="/res/icons/contacts.png" class='link_img')
+                            span Участники
+                    li(class=item_params)
+                        a(class=button_params)
+                            img(src="/res/icons/settings.png" class='link_img')
+                            span Настройки
+        div(class='main_container container-fluid')
+            div(class="row justify-content-around")
+                div(class="col-sm-12 col-md-2 content")
+                    block sidebar
+                div(class='col-sm-12 col-md-9 content')
+                    block content
+        script(src='/lib/jquery/jquery-3.3.1.min.js')
+        script(src='/lib/popper/popper.js')
+        script(src='/lib/bootstrap/js/bootstrap.js')
+        block scripts
