@@ -48,7 +48,6 @@ function show_add_image(){
     $("#price_input").val(0);
     $("#min_step_input").val(0);
     $("#max_step_input").val(0);
-    $("#forSaleCheckBox").val("on");
     $("#picture_info_title").text("Добавить картину");
     $("#picture_info_index").text("");
     $("#picture_info").modal('toggle');
@@ -63,7 +62,7 @@ function add_image(){
     image.start_price = $("#price_input").val();
     image.min_step = $("#min_step_input").val();
     image.max_step = $("#max_step_input").val();
-    image.for_auction = ($("#forSaleCheckBox").val() === "on");
+    image.for_auction = $("#forSaleCheckBox").is(":checked");
     let obj = {
         "img": image
     };
@@ -72,6 +71,25 @@ function add_image(){
         obj.id = parseInt(id);
     else
         obj.id = -1;
+    $.ajax({
+        url: "/",
+        method: "PUT",
+        data: obj,
+        success: () =>{
+            location.reload();
+        }
+    })
+}
+
+function delete_image(){
+    let id = $("#picture_info_index").text();
+    $.ajax({
+        url: "/" + id.toString(),
+        method: "DELETE",
+        success: () =>{
+            location.reload();
+        }
+    })
 }
 
 get_gallery();

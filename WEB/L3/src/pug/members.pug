@@ -1,0 +1,44 @@
+extends main_template
+
+block content
+    table(class="table" id = "contacts_table")
+        thead
+            tr
+                th(scope="col") Имя
+                th(scope="col") Фамилия
+                th(scope="col") Телефон
+                th(scope="col") Информация
+    
+    div(class="modal fade" id="contact_info" role="dialog" aria-hidden="true")
+        div(class="modal-dialog" role="document")
+            div(class="modal-content popup_content")
+                div(class="modal-header")
+                    h5(class="modal-title")
+                        span(id="сontact_info_title") Информация о контакте:
+                        span(id="contact_info_index") 0
+                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                        span(aria-hidden="true") &times
+                div(class=" modal-body")
+                    div(class="container-fluid")
+                        div(class="col-12")
+                            form
+                                div(class="form-group")
+                                    label(for="name_input") Имя
+                                    input(type="text" class="form-control" id="name_input" value="DUMMY NAME")
+                                div(class="form-group")
+                                    label(for="surname_input") Фамилия
+                                    input(type="text" class="form-control" id="surname_input" value="/res/dummy.jpg")
+                                div(class="form-group")
+                                    label(for="phone_input") Номер
+                                    input(type="text" class="form-control" id="phone_input" value="DUMMY AUTHOR")
+
+                div(class="modal-footer")
+                    button(type="button" class="btn black_button" data-dismiss="modal") Закрыть
+                    button(type="button" class="btn red_button" onclick="delete_member()") Удалить
+                    button(type="button" class="btn white_button" onclick="add_member()") Сохранить
+                
+block sidebar
+    button(type="button" class="btn btn_black_button col-sm" onclick="show_add_member()") Добавить
+
+block scripts
+    script(src='/js/members.js')

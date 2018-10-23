@@ -12,6 +12,7 @@
 
 @light_button_color: #D7DADC;
 @dark_button_color: @container_bc;
+@red_button_color: #6e000e;
 @page_pc: black;
 @container_border_color: #343536;
 @container_bc: #1A1A1B;
@@ -29,6 +30,15 @@
   border: @light_button_color 1px solid;
   &:hover{
     background-color: .lighten_color(@dark_button_color)[@return];
+  }
+}
+
+.red_button{
+  background-color: @red_button_color;
+  color: .get_contrast_color(@dark_button_color)[@return] !important;
+  border: @light_button_color 1px solid;
+  &:hover{
+    background-color: .lighten_color(@red_button_color)[@return];
   }
 }
 

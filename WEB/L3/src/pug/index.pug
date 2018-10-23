@@ -9,53 +9,10 @@ block content
                 th(scope="col") Автор
                 th(scope="col") Информация
 
-    div(class="modal fade" id="picture_info" role="dialog" aria-hidden="true")
-        div(class="modal-dialog" role="document")
-            div(class="modal-content popup_content")
-                div(class="modal-header")
-                    h5(class="modal-title")
-                        span(id="picture_info_title") Информация о картине:
-                        span(id="picture_info_index") 0
-                    button(type="button" class="close" data-dismiss="modal" aria-label="Close")
-                        span(aria-hidden="true") &times
-                div(class=" modal-body")
-                    div(class="container-fluid")
-                        div(class="col-12")
-                            img(src='/res/dummy.jpg' class="popup_image" id="image_output")
-                        div(class="col-12")
-                            form
-                                div(class="form-group")
-                                    label(for="name_input") Имя
-                                    input(type="text" class="form-control" id="name_input" value="DUMMY NAME")
-                                div(class="form-group")
-                                    label(for="name_input") Ссылка
-                                    input(type="text" class="form-control" id="url_input" value="/res/dummy.jpg")
-                                div(class="form-group")
-                                    label(for="author_input") Автор
-                                    input(type="text" class="form-control" id="author_input" value="DUMMY AUTHOR")
-                                div(class="form-group")
-                                    label(for="description_input") Описание
-                                    textarea(class="form-control" id="description_input") DUMMY DESCRIPTION
-                                div(class="form-row")
-                                    div(class="form-group col-4")
-                                        label(for="price_input") Цена
-                                        input(type="number" class="form-control" id="price_input" value=100000)
-                                    div(class="form-group col-4")
-                                        label(for="min_step_input") Мин. шаг
-                                        input(type="number" class="form-control" id="min_step_input" value=100)
-                                    div(class="form-group col-4")
-                                        label(for="max_step_input") Макс. шаг
-                                        input(type="number" class="form-control" id="max_step_input" value=1000)
-
-                div(class="modal-footer")
-                    div(class="custom-control custom-checkbox")
-                        label(for="forSaleCheckBox" class="custom-control-label") Доступна для продажи
-                        input(type="checkbox" id="forSaleCheckBox" class="custom-control-input")
-                    button(type="button" class="btn black_button" data-dismiss="modal") Закрыть
-                    button(type="button" class="btn white_button" onclick="add_image()") Сохранить
+    include picture_modal
 
 block sidebar
-    button(type="button" class="btn btn_black_button col-sm" onclick="show_add_image()") Добавить
+    button(type="button" class="btn black_button col-sm" onclick="show_add_image()") Добавить
 
 block scripts
     script(src="/js/index.js")

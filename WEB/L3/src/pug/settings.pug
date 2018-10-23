@@ -1,0 +1,23 @@
+extends main_template
+
+block content
+    form
+        div(class="form-row")
+            div(class="col-sm-12 col-md-6")
+                label(for="date_input") Дата начала
+                input(type="date" class="form-control" id="date_input" value="2012-12-21")
+            div(class="col-sm-12 col-md-6")
+                label(for="time_input") Время начала
+                input(type="time" class="form-control" id="time_input" value="12:34")
+            div(class="col-sm-12 col-md-6")
+                label(for="sell_timeout_input") Время на продажу
+                input(type="time" class="form-control" id="sell_timeout_input" value="12:34")
+            div(class="col-sm-12 col-md-6")
+                label(for="info_interval_input") Время на изучение
+                input(type="time" class="form-control" id="info_interval_input" value="00:03")
+
+block sidebar
+    button(type="button" class="btn white_button col-sm" onclick="save_settings()") Сохранить
+
+block scripts
+    script(src='/js/settings.js')
