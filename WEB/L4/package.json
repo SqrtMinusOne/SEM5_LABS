@@ -1,0 +1,11 @@
+{
+  "name": "WEB_L4",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "latest",
+    "connect-mongo": "^2.0.1",
+    "express": "latest",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.3.6"
+  }
+}

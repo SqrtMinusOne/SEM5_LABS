@@ -1,0 +1,26 @@
+html
+    head
+        link(rel='stylesheet' href='/css/w3.css' type='text/css')
+        link(rel='stylesheet' href='/lib/jquery-ui/jquery-ui.css')
+        title Аукцион - #{title}
+    body(class='w3-light-gray' id='containment-wrapper')
+        div(id='message' style='display: none !important' title="Сообщение")
+
+        div(class='w3-top')
+            div(class='w3-bar w3-indigo w3-card')
+                b(class='w3-bar-item w3-mobile w3-border-right') Аукцион картин
+                div(class='w3-hide-small')
+                    if (user)
+                        a(class='w3-bar-item w3-button w3-hover-blue w3-mobile' href='/') Главная
+                    else
+                        a(class='w3-bar-item w3-button w3-hover-blue w3-mobile' href='/') Логин
+                        a(class='w3-bar-item w3-button w3-hover-blue w3-mobile' href='/registration') Регистрация
+                    div(class='w3-right')
+                        if(user)
+                            div(class='w3-bar-item' id='user_info') Инфа
+                            button(class='w3-bar-item w3-button w3-red w3-mobile' onclick='logout()') Выйти
+            block main_content
+    script(src='lib/jquery/jquery-3.3.1.min.js')
+    script(src='lib/jquery-ui/jquery-ui.js')
+    script(src='javascript/main_template.js')
+    block scripts

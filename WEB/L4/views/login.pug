@@ -1,0 +1,18 @@
+extends main/main_wo_sidebar
+
+block content
+    div(class='w3-container w3-blue')
+        h2 Вход
+    form(class='w3-container' onsubmit="return false")
+        p
+            label Логин
+            input(class='w3-input' type='text' id='login_input' required)
+        p
+            label Пароль
+            input(class='w3-input' type='password' id='password_input' required)
+        p
+            button(class='w3-button w3-green w3-margin-right' onclick='login()') Вход
+            a(class='w3-button w3-sand' href='/registration') Регистрация
+
+block scripts
+    script(src='javascript/login.js')
