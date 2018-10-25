@@ -7,7 +7,12 @@ const User = new mongoose.Schema({
     },
     password_hash: {
         type: String,
-        unique: true
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
     },
     is_admin: {
         type: Boolean,

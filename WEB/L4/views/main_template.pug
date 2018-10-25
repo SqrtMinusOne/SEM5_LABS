@@ -1,0 +1,21 @@
+html
+    head
+        link(rel='stylesheet' href='/css/w3.css' type='text/css')
+        link(rel='stylesheet' href='/lib/jquery-ui/jquery-ui.css')
+        script(src='lib/jquery/jquery-3.3.1.min.js')
+        script(src='lib/jquery-ui/jquery-ui.js')
+        script(src='http://localhost:3030/socket.io/socket.io.js')
+        title Аукцион - #{title}
+    body(class='w3-dark-gray' id='containment-wrapper')
+        div(id='message' style='display: none !important' title="Сообщение")
+        div(class='w3-top')
+            div(class='w3-bar w3-indigo w3-card')
+                b(class='w3-bar-item w3-mobile w3-border-right') Аукцион картин
+                div(class='w3-hide-medium w3-hide-small' id="main_navbar")
+                div(class='w3-right w3-hide-small' id="main_navbar_right")
+        div(class='w3-container' style="margin-top: 45px")
+            div(class='w3-card w3-light-gray w3-margin' id="content_container")
+                block content
+        block modals
+    script(src='javascript/main_template.js')
+    block scripts

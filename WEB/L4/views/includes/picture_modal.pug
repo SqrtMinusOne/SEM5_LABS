@@ -1,0 +1,40 @@
+div(class='w3-modal' id='picture_info')
+    div(class='w3-modal-content' id='picture_info_content')
+        header(class='w3-container w3-blue')
+            span(onclick="document.getElementById('picture_info').style.display='none'"
+            class='w3-button w3-display-topright') &times
+            h2 Информация
+        div(class='w3-container w3-white')
+            img(src='/res/dummy.jpg' id='output_image' style='max-width: 100%; max-height: 100%')
+            p
+                label Название
+                input(class='w3-input w3-border w3-white' id='name_input' type='text' disabled)
+            p
+                label Автор
+                input(class='w3-input w3-border w3-white' id='author_input' type='text' disabled)
+            p
+                label Описание
+                textarea(class='w3-input w3-border w3-white' id='description_input' type='text' disabled)
+            p
+                label url
+                input(class='w3-input w3-border w3-white' type='text' id='url_input' disabled)
+            div(class='w3-row')
+                div(class='w3-third')
+                    label Начальная цена
+                    input(class='w3-input w3-border w3-white' type='number' id='start_price_input' disabled)
+                div(class='w3-third')
+                    label Минимальный шаг
+                    input(class='w3-input w3-border w3-white' type='number' id='min_step_input' disabled)
+                div(class='w3-third')
+                    label Максимальный шаг
+                    input(class='w3-input w3-border w3-white' type='number' id='max_step_input' disabled)
+            p
+                label(class='w3-margin-right') Доступна для продажи
+                input(class='w3-check' type='checkbox' id='for_auction_checkbox' disabled)
+            div(class='w3-row w3-margin-bottom')
+                div(class='w3-half')
+                    label Покупатель
+                    input(class='w3-input w3-border w3-white' id='buyer_input' type='text' disabled)
+                div(class='w3-half')
+                    label Цена покупки
+                    input(class='w3-input w3-border w3-white' type='number' id='sold_price_input' disabled)

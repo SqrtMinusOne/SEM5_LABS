@@ -1,4 +1,4 @@
-extends main/main_wo_sidebar
+extends main_template
 
 block content
     div(class='w3-container w3-blue')
@@ -7,6 +7,9 @@ block content
         p
             label Логин
             input(class='w3-input' type='text' id='login_input' required)
+        p
+            label Имя
+            input(class='w3-input' type='text' id='name_input' required)
         p
             label Пароль
             input(class='w3-input' type='password' id='password_input' required)

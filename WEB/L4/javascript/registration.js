@@ -1,3 +1,5 @@
+// @flow
+
 $(()=>{
     $( "#content_container" ).draggable({
         containment: "#containment-wrapper"
@@ -7,12 +9,12 @@ $(()=>{
     });
 });
 
-
 function create(){
-    user_data = {
+    let user_data = {
         username: $("#login_input").val(),
         password: $("#password_input").val(),
-        is_admin: $("#type_input option:selected").text() === 'true',
+        name: $("#name_input").val(),
+        is_admin: $("#type_input option:selected").text() === 'Администратор',
         is_authenticated: false
     };
     if (!((user_data.username) && (user_data.password))){

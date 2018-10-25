@@ -1,3 +1,5 @@
+// @flow
+
 $(()=>{
     $( "#content_container" ).draggable({
         containment: "#containment-wrapper"

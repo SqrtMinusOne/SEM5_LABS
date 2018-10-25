@@ -1,13 +1,15 @@
+// @flow
+
 const express = require('express');
 const router = express.Router();
-const mongo = require('./mongo');
+const mongoU = require('./api/mongo_user');
 
 router.get('/current', (req, res, next)=>{
     if (!req.session.user){
-        res.send('Session not active')
+        res.send('Нет активного пользователя')
     }
     else{
-        mongo.findUser(req.session.user.id).then((user)=>{
+        mongoU.findUser(req.session.user.id).then((user)=>{
             res.send(user);
         }).catch((error)=>{
             res.status(500).send('Пользователь на найден')
@@ -15,9 +17,16 @@ router.get('/current', (req, res, next)=>{
     }
 });
 
+router.get('/all', (req, res, next)=>{
+    console.log('GET users/all');
+    mongoU.returnUsers().then((users)=>{
+        res.send(users);
+    })
+});
+
 router.post('/login', (req, res, next)=>{
     if (req.session.user) return res.redirect('/');
-    mongo.checkUser(req.body).then((user)=>{
+    mongoU.checkUser(req.body).then((user)=>{
         req.session.user = {id: user._id, name: user.name};
         res.send('ok');
     }).catch((error)=>{
@@ -26,9 +35,9 @@ router.post('/login', (req, res, next)=>{
 });
 
 router.post('/', (req, res, next)=>{
-    mongo.createUser(req.body).then(()=>{
+    mongoU.createUser(req.body).then(()=>{
         console.log("User created ok");
-        res.status(200).send("User created ok");
+        res.status(200).redirect('/');
     }).catch((error)=>{
         if (error.code === 11000){
             res.status(500).send("Этот пользователь уже существует")
@@ -39,10 +48,18 @@ router.post('/', (req, res, next)=>{
 });
 
 router.post('/logout', (req, res, next)=>{
+    console.log('POST logout');
     if (req.session.user){
-        mongo.logout(req.session.user.id);
-        delete req.session.user;
-        res.redirect('/');
+        mongoU.logout(req.session.user.id).then(()=>{
+            if (delete req.session.user) {
+                console.log('Logout ok');
+                res.redirect('/');
+            }
+            else
+                console.log('Session deletion error');
+        }).catch((error)=>{
+            console.log(error);
+        });
     }
 });
 

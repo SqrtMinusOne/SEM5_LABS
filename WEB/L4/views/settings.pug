@@ -1,0 +1,37 @@
+extends main_template
+
+block content
+    div(class='w3-container w3-blue w3-margin-bottom')
+        h2 Настройки
+    div(class='w3-container')
+        b Импортировать галерею
+        form(class='w3-row w3-margin-bottom' action='/set/gallery' enctype="multipart/form-data" method="post")
+            div(class='w3-col s9')
+                input(class='w3-input w3-border' type='file' name='gallery_file')
+            div(class='w3-rest w3-center')
+                button(class='w3-button w3-green w3-block' style='height: 46px' type='submit') Импорт
+        b Импортировать настройки
+        form(class='w3-row w3-margin-bottom' action='/set/settings' enctype="multipart/form-data" method="post")
+            div(class='w3-col s9')
+                input(class='w3-input w3-border' type='file' name='settings_file')
+            div(class='w3-rest w3-center')
+                button(class='w3-button w3-green w3-block' style='height: 46px' type='submit') Импорт
+        b Настройки
+        div(class='w3-row w3-margin-bottom w3-border')
+            div(class='w3-quarter')
+                label Дата начала
+                input(class='w3-input w3-border' type='date' disabled='true' id='start_date')
+            div(class='w3-quarter')
+                label Время начала
+                input(class='w3-input w3-border' type='time' disabled='true' id='start_time')
+            div(class='w3-quarter')
+                label Время на продажу
+                input(class='w3-input w3-border' type='text' disabled='true' id='sell_time')
+            div(class='w3-quarter')
+                label Время на изучение
+                input(class='w3-input w3-border' type='text' disabled='true' id='examine_time')
+        div(class='w3-row w3-margin-bottom w3-bar')
+            button(class='w3-bar-item w3-button w3-red w3-margin-right' onclick='clear_gallery()') Очистить галерею
+            button(class='w3-bar-item w3-button w3-red' onclick='clear_settings()') Очистить настройки
+block scripts
+    script(src='javascript/settings.js')

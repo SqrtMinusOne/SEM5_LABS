@@ -1,0 +1,17 @@
+extends main_template
+
+block content
+    div(class='w3-container w3-blue')
+        h2 Список картин
+    table(class='w3-table-all w3-light-gray w3-hoverable' id='user_table')
+        tr
+            th Название
+            th Автор
+            th Начальная цена
+            th Цена продажи
+            th Покупатель
+            th Информация
+    include includes/picture_modal
+
+block scripts
+    script(src='/javascript/gallery.js')
