@@ -23,9 +23,12 @@ function startSockets() {
     });
     socket.on("user_stake_info", (msg)=>{
         addMessage(msg.time, msg.message, 'w3-deep-purple');
-    })
+    });
     socket.on("stop_auc", (msg)=>{
         addMessage(msg.time, msg.message, 'w3-black');
+    });
+    socket.on('auc_finished', (msg)=>{
+        addMessage(msg.time, msg.message, 'w3-green');
     })
 }
 

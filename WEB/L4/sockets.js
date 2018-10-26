@@ -2,6 +2,7 @@
 
 const mongoP = require('./api/mongo_pictures');
 const mongoS = require('./api/mongo_setting');
+const winston = require('./logger');
 
 var info_t;
 var sell_t;
@@ -12,9 +13,8 @@ var cur_price;
 
 function startSocketServer() {
     const io = require('socket.io').listen(3030);
-    console.log("Socket started at http://localhost:3030");
+    winston.verbose("Socket started at http://localhost:3030");
     io.sockets.on('connection', (socket)=>{
-
          socket.on('connected', (msg)=>{
             socket.name = msg.name;
             send(socket, 'joined', `${msg.name} присоединился к аукциону`);
@@ -23,7 +23,7 @@ function startSocketServer() {
         socket.on('picture_set', (msg)=>{
             setPictureParams(msg.id);
         });
-        
+
         socket.on('start_auction', (msg)=>{
             clearTimeout(auc_timeout);
             startAuc();
@@ -52,6 +52,7 @@ function startSocketServer() {
 
         function stopAuc(){
             let msg = `Аукцион по картине "${current_picture.name}" окончен. '`;
+            current_picture.for_auction = false;
             if (current_picture.buyer) {
                 msg = msg + `Победитель - ${current_picture.buyer}, цена - ${current_picture.sold_price}`;
                 current_picture.save();
@@ -62,10 +63,19 @@ function startSocketServer() {
             send(socket, 'stop_auc', msg);
             socket.json.emit('stop_auc_info', {"id": current_picture._id});
             socket.broadcast.json.emit('stop_auc_info', {"id": current_picture._id});
+            mongoP.returnGallery().then((gallery)=>{
+                let not_sold = 0;
+                gallery.forEach((picture)=>{
+                    if (picture.for_auction)
+                        not_sold++;
+                });
+                if (not_sold === 0){
+                    send(socket, 'auc_finished', 'Аукцион окончен')
+                }
+            })
         }
 
-
-        function setPictureParams(msg) {
+        function setPictureParams(id) {
             mongoP.findPictureById(id).then((picture) => {
                 if (picture) {
                     current_picture = picture;
@@ -92,6 +102,7 @@ function startSocketServer() {
 }
 
 function send(socket, type, msg){
+    winston.verbose(`Message: ${type} - ${msg}`);
     let time = (new Date()).toLocaleTimeString();
     let obj = {
         "time": time,

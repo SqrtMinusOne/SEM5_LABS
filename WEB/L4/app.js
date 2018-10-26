@@ -2,15 +2,21 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+const session = require("express-session");
+const winston = require('./logger');
+const morgan = require('morgan');
+const mongoStore = require('connect-mongo')(session);
+
+const sockets = require('./sockets');
 const routes = require("./routes");
 const users = require("./users");
 const settings = require("./set");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const mongoStore = require('connect-mongo')(session);
-const sockets = require('./sockets');
 
 const server = express();
+winston.verbose('Initialization');
+
+server.use(morgan('combined', {stream: winston.stream}));
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
@@ -23,10 +29,10 @@ mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
     server.use("/", routes);
     server.use("/users", users);
     server.use("/set", settings);
-    console.log("Connection to mongoDB ok");
+    winston.verbose("Connection to mongoDB ok");
 }).catch((error)=>{
-    console.log("Connection to mongoDB failed");
-    console.log(error);
+    winston.error("Connection to mongoDB failed");
+    winston.error(error);
 }).then(()=>{
     server.use('/lib', express.static(__dirname + "/lib"));
     server.use('/res', express.static(__dirname + "/res"));
@@ -35,7 +41,7 @@ mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
     server.set('view engine', 'pug');
     server.set('views', './views');
     server.listen(3000, ()=>{
-        console.log("HTTP server started at http://localhost:3000");
+        winston.verbose("HTTP server started at http://localhost:3000");
     });
     sockets.startSocketServer();
 });

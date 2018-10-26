@@ -10,7 +10,7 @@ $(document).ready(()=>{
             let select =$("#pictures_select");
             gallery.forEach((picture)=>{
                 let option = $('<option>').val(picture._id).text(picture.name);
-                if (!picture.buyer)
+                if (picture.for_auction)
                     select.append(option);
             })
         }

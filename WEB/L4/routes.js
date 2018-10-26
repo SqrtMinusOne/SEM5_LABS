@@ -2,29 +2,30 @@
 
 const express = require("express");
 const router = express.Router();
+const winston = require('./logger');
 const mongoU = require("./api/mongo_user");
 
 function auth_levels(session, not_logged, logged_not_admin=null, logged_admin=null, error_func=null){
     if (!session.user){
-        console.log("User is not logged in");
+        winston.verbose("User is not logged in");
         not_logged();
     }
     else if (logged_not_admin){
         mongoU.findUser(session.user.id).then((user)=>{
             if ((user.is_admin) && (logged_admin)) {
-                console.log('Admin user ok');
+                winston.verbose('Admin user ok');
                 logged_admin();
             }
             else{
                 if (logged_admin)
-                    console.log("Non-admin user, denied");
+                    winston.warn("Non-admin user, denied");
                 else
-                    console.log("Non-admin user, ok");
+                    winston.verbose("Non-admin user, ok");
                 logged_not_admin();
             }
         }).catch((error)=>{
-            console.log('!!CRITICAL!! User exists, but not found in the DB');
-            console.log(error);
+            winston.error('!!CRITICAL!! User exists, but not found in the DB');
+            winston.error(error);
             if (error_func){
                 error_func(error);
             }
@@ -33,7 +34,6 @@ function auth_levels(session, not_logged, logged_not_admin=null, logged_admin=nu
 }
 
 router.get("/", (req, res, next)=>{
-    console.log("GET /");
     auth_levels(req.session,()=>{
         res.render('login', user=req.session.user);
     }, ()=>{
@@ -44,7 +44,6 @@ router.get("/", (req, res, next)=>{
 });
 
 router.get('/gallery', (req, res, next)=>{
-    console.log("GET /gallery");
     auth_levels(req.session, ()=>{
         res.redirect('/')
     }, ()=>{
@@ -53,7 +52,6 @@ router.get('/gallery', (req, res, next)=>{
 });
 
 router.get("/user_list", (req, res, next)=>{
-   console.log("GET /user_list");
    auth_levels(req.session, ()=>{
        res.redirect('/');
    }, ()=>{
@@ -64,7 +62,6 @@ router.get("/user_list", (req, res, next)=>{
 });
 
 router.get("/settings", (req, res, next)=>{
-    console.log("GET /settings");
     auth_levels(req.session, ()=>{
         res.redirect('/');
     }, ()=>{
@@ -75,7 +72,6 @@ router.get("/settings", (req, res, next)=>{
 });
 
 router.get("/registration", (req, res, next)=>{
-    console.log("GET /registration");
     res.render('registration', user=req.session.user);
 });
 
