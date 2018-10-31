@@ -43,7 +43,7 @@ router.delete('/gallery', (req, res, next)=>{
    mongoP.deleteGallery().then(()=>{
        res.redirect('/settings');
    }).catch((err)=>{
-       winston.error(err);
+       winston.log({level: 'error', message: err})
    })
 });
 
@@ -51,7 +51,7 @@ router.delete('/settings', (req, res, next)=>{
     mongoS.deleteSettings().then(()=>{
         res.redirect('/settings');
     }).catch((err)=>{
-        winston.error(err);
+        winston.log({level: 'error', message: err})
     })
 });
 

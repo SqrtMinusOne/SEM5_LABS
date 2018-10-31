@@ -24,8 +24,8 @@ function auth_levels(session, not_logged, logged_not_admin=null, logged_admin=nu
                 logged_not_admin();
             }
         }).catch((error)=>{
-            winston.error('!!CRITICAL!! User exists, but not found in the DB');
-            winston.error(error);
+            error.message = '!!CRITICAL!! User exists, but not found in the DB' + error.message;
+            winston.log({level: 'error', message: error});
             if (error_func){
                 error_func(error);
             }

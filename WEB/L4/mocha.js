@@ -5,7 +5,7 @@ const mongoP = require("./src/api/mongo_pictures");
 const User = require("./models/user");
 const mongoU = require("./src/api/mongo_user");
 
-beforeEach(async ()=>{
+before(async function () {
     await mongoose.connect('mongodb://localhost:27017/web_l4');
 });
 

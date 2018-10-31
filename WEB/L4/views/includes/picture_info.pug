@@ -5,6 +5,8 @@ div(class='w3-card w3-light-gray w3-margin')
         div(class='w3-row w3-margin-bottom')
             div(class='w3-half w3-padding')
                 img(src='/res/dummy.jpg' id='output_image_info' style='max-width: 100%; max-height: 100%')
+                button(class='w3-button w3-margin-top w3-green w3-block'
+                    onclick='document.getElementById("picture_info").style.display="block"') Информация
             div(class='w3-half')
                 p
                     label Обратный отсчёт
@@ -15,17 +17,12 @@ div(class='w3-card w3-light-gray w3-margin')
                 p
                     label Автор
                     input(class='w3-input w3-border w3-white' id='author_input_info' type='text' disabled)
-                button(class='w3-button w3-green w3-block' onclick='document.getElementById("picture_info").style.display="block"') Информация
         div(class='w3-row')
-            div(class='w3-third')
-                p
-                    label Время с начала торгов
-                    input(class='w3-input w3-border w3-white' id='time_input_info' type='text' disabled)
-            div(class='w3-third')
+            div(class='w3-half')
                 p
                     label Начальная цена
                     input(class='w3-input w3-border w3-white' id='start_price_input_info' type='number' disabled)
-            div(class='w3-third')
+            div(class='w3-half')
                 p
                     label Текущая цена
                     input(class='w3-input w3-border w3-white' id='current_price_info' type='number' disabled)

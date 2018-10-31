@@ -8,8 +8,9 @@ const winston = require('./logger');
 const morgan = require('morgan');
 const mongoStore = require('connect-mongo')(session);
 const path = require('path');
+const domain = require('domain');
 
-const sockets = require('./sockets');
+const sockets = require('./auction');
 const routes = require("./routes");
 const users = require("./users");
 const settings = require("./set");
@@ -20,6 +21,28 @@ winston.verbose('Initialization');
 winston.verbose(`Current working directory is ${process.cwd()}`);
 
 server.use(morgan('combined', {stream: winston.stream}));
+server.use((req, res, next)=>{
+    const dom = domain.create();
+
+    res.once('finish', ()=>{
+        dom.exit();
+        dom.removeAllListeners();
+    });
+
+    dom.once('error', function (e) {
+        if (!res.headersSent) {
+            let error = e && e.stack || util.inspect(e || 'no error trace available');
+            winston.log({level: 'error', message: error});
+            res.status(500).json({
+                error: error
+            });
+        }
+    });
+
+    dom.run(next);
+
+});
+
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
@@ -30,6 +53,7 @@ mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
         store: new mongoStore({mongooseConnection: mongoose.connection})
     }));
     mongoU.clearAuths();
+    //throw "Error Error Error";
     winston.verbose("Connection to mongoDB ok");
     server.use("/", routes);
     server.use("/users", users);
@@ -45,6 +69,5 @@ mongoose.connect('mongodb://localhost:27017/web_l4').then(()=>{
     });
     sockets.startSocketServer();
 }).catch((error)=>{
-    winston.error("Connection to mongoDB failed");
-    winston.error(error);
+    winston.log({level: 'error', message: error});
 });
