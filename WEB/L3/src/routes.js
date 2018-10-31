@@ -41,6 +41,10 @@ router.put("/", (req, res, next)=>{
     let obj = req.body;
     if (obj.id == -1)
         obj.id = gallery.length;
+    obj.img['start_price'] = parseInt(obj.img['start_price']);
+    obj.img['min_step'] = parseInt(obj.img['min_step']);
+    obj.img['max_step'] = parseInt(obj.img['max_step']);
+    obj.img['for_auction'] = obj.img['for_auction'] === 'true';
     gallery[obj.id] = obj.img;
     saveJSON(gallery, "data/gallery.json");
     res.json(responseOK());

@@ -58,10 +58,10 @@ function add_image(){
     image.name = $("#name_input").val();
     image.url = $("#url_input").val();
     image.author = $("#author_input").val();
-    image.description = $("#description_input").text();
-    image.start_price = $("#price_input").val();
-    image.min_step = $("#min_step_input").val();
-    image.max_step = $("#max_step_input").val();
+    image.description = $("#description_input").val();
+    image.start_price = parseInt($("#price_input").val());
+    image.min_step = parseInt($("#min_step_input").val());
+    image.max_step = parseInt($("#max_step_input").val());
     image.for_auction = $("#forSaleCheckBox").is(":checked");
     let obj = {
         "img": image

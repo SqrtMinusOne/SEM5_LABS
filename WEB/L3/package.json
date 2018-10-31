@@ -23,6 +23,5 @@
     "gulp-rename": "^1.4.0",
     "gulp-uglify": "^3.0.1",
     "gulp4": "latest"
-
   }
 }

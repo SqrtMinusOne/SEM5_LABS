@@ -28,7 +28,7 @@ const code = () => {
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(minify())
+        //.pipe(minify())
         .pipe(gulp.dest('build/'))
 };
 

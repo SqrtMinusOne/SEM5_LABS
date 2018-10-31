@@ -1,22 +1,42 @@
 [
-  {
-    "name": "Republican presidents playing cards",
-    "url": "https://i2.wp.com/remolacha.net/wp-content/uploads/2018/10/Trump-1.jpg?",
-    "author": "Andy Thomas",
-    "description": "In the picture, Trump is seen kicking back over a Diet Coke with nine Republican predecessors.",
-    "start_price": 1000000,
-    "min_step": 1000,
-    "max_step": 10000,
-    "for_auction": true
-  },
-  {
-    "name": "The Doctor",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/The_Doctor_Luke_Fildes_crop.jpg",
-    "author": "Luke Fidelis",
-    "description": "The Doctor is an 1891 painting by Luke Fildes that depicts a Victorian doctor observing the critical stage in a child's illness while the parents gaze on helplessly from the periphery. It has been used to portray the values of the ideal physician and the inadequacies of the medical profession. Different theories exist as to the painting's origin but it is most likely based upon Fildes' own experience of the death of his son. Critics have noted that Fildes omitted common medical equipment of his era in order to focus on the relationship between physician and patient.",
-    "start_price": 15300,
-    "min_step": 100,
-    "max_step": 1000,
-    "for_auction": true
-  }
+    {
+        "name": "Republican presidents playing cards",
+        "url": "https://i2.wp.com/remolacha.net/wp-content/uploads/2018/10/Trump-1.jpg?",
+        "author": "Andy Thomas",
+        "description": "In the picture, Trump is seen kicking back over a Diet Coke with nine Republican predecessors.",
+        "start_price": 10000,
+        "min_step": 1000,
+        "max_step": 10000,
+        "for_auction": true
+    },
+    {
+        "name": "The Doctor",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/The_Doctor_Luke_Fildes_crop.jpg",
+        "author": "Luke Fidelis",
+        "description": "The Doctor is an 1891 painting by Luke Fildes that depicts a Victorian doctor observing the critical stage in a child's illness while the parents gaze on helplessly from the periphery. It has been used to portray the values of the ideal physician and the inadequacies of the medical profession. Different theories exist as to the painting's origin but it is most likely based upon Fildes' own experience of the death of his son. Critics have noted that Fildes omitted common medical equipment of his era in order to focus on the relationship between physician and patient.",
+        "start_price": 15300,
+        "min_step": 100,
+        "max_step": 1000,
+        "for_auction": true
+    },
+    {
+        "name": "Лунная ночь на Днепре",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Kuindzhi_Moonlit_night_on_the_Dnieper_1880_grm_x2.jpg/800px-Kuindzhi_Moonlit_night_on_the_Dnieper_1880_grm_x2.jpg",
+        "author": "Архип Куинджи",
+        "description": "На картине изображена широкая река — Днепр — в летнюю лунную ночь. Зеленоватая лента реки, в которой отражается лунный свет, пересекает равнину, которая у горизонта сливается с тёмным небом, покрытым рядами лёгких облаков. Эта картина считается самым прославленным произведением Куинджи, и она рассматривается как крупнейшее творческое достижение художника.",
+        "start_price": 10000,
+        "min_step": 1000,
+        "max_step": 5000,
+        "for_auction": true
+    },
+    {
+        "name": "The Battle of Bull Run",
+        "url": "https://cdn.loc.gov/service/pnp/pga/01800/01843v.jpg",
+        "author": "Kurz & Allison",
+        "description": "The First Battle of Bull Run (the name used by Union forces), also known as the First Battle of Manassas (the name used by Confederate forces), was fought on July 21, 1861 in Prince William County, Virginia, just north of the city of Manassas and about 25 miles west-southwest of Washington, D.C. It was the first major battle of the American Civil War. The Union's forces were slow in positioning themselves, allowing Confederate reinforcements time to arrive by rail. Each side had about 18,000 poorly trained and poorly led troops in their first battle. It was a Confederate victory, followed by a disorganized retreat of the Union forces.",
+        "start_price": 20000,
+        "min_step": 1000,
+        "max_step": 7000,
+        "for_auction": true
+    }
 ]
