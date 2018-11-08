@@ -1,0 +1,7 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<app-navbar></app-navbar>
+<div style="margin-top: 40px">
+  <app-stocks *ngIf="current_view==='stocks'"></app-stocks>
+    <app-brokers *ngIf="current_view==='brokers'"></app-brokers>
+</div>
+<router-outlet></router-outlet>
