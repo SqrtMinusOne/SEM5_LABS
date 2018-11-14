@@ -9,6 +9,7 @@ export abstract class AbstractBroker{
         this._portfolio = [{}];
         this._market = market;
         this._market.add_broker(this);
+        this._type = '';
     }
 
     abstract makeDecision():{[name:string]: {quantity: number, stock: AbstractStock}}
@@ -37,7 +38,7 @@ export abstract class AbstractBroker{
     }
 
     protected get copy_of_portfolio(){
-        let res = {};
+        let res: { [p: string]: { quantity: number; stock: AbstractStock } } = {};
         Object.keys(this.portfolio).forEach((stock_name: string) => {
             res[stock_name] = {
                 quantity: this.portfolio[stock_name].quantity,

@@ -16,21 +16,24 @@ export class StockMarket{
 
     add_stock(stock: AbstractStock){
         this._stocks.push(stock)
+        this.callback();
     }
 
     add_broker(broker: AbstractBroker){
         this._brokers.push(broker)
+        this.callback();
     }
 
-    fromJSON(obj){
+    fromJSON(obj: any){
         this._stocks = [];
         this._brokers = [];
-        obj.stocks.forEach((stock_info)=>{
+        obj.stocks.forEach((stock_info: any)=>{
             this.update_stock(stock_info);
         });
-        obj.brokers.forEach((broker_info)=>{
+        obj.brokers.forEach((broker_info: any)=>{
             this.update_broker(broker_info);
         })
+        this.callback();
     }
 
     toJSON(start_time: number = this.time, end_time?: number): object {
@@ -58,6 +61,10 @@ export class StockMarket{
         };
     }
 
+    simulate_one_day(){
+        this.simulate_to_time(++this._time);
+    }
+
     simulate_to_time(new_time: number){
         logger.info(`Simulating from time ${this._time} to time: ${new_time} `);
         for(let i: number = this._time + 1; i <= new_time; i++){
@@ -71,9 +78,10 @@ export class StockMarket{
             });
         }
         this._time = new_time;
+        this.callback();
     }
 
-    update_stock(stock, id: number = this._stocks.length){
+    update_stock(stock: any, id: number = this._stocks.length){
         if (this._stocks.length <= id){
             this.generate_stock(stock, id);
         }
@@ -83,9 +91,10 @@ export class StockMarket{
         else{
             this.set_stock(stock, id);
         }
+        this.callback();
     }
 
-    private generate_stock(stock_info, id: number){
+    private generate_stock(stock_info: any, id: number){
         stock_info.start_price = parseInt(stock_info.start_price);
         stock_info.quantity = parseInt(stock_info.quantity);
         for (let i = 0; i < stock_info.params.length; i++){
@@ -113,16 +122,16 @@ export class StockMarket{
         //TODO
     }
 
-    private set_stock(stock_info, id: number){
+    private set_stock(stock_info: any, id: number){
         let stock_to_update = this._stocks[id];
         stock_to_update.name = stock_info.name;
         stock_to_update.quantity = parseInt(stock_info.quantity);
-        stock_info.params.forEach((param_info)=>{
+        stock_info.params.forEach((param_info: any)=>{
             stock_to_update.params[param_info.name].setter(parseInt(param_info.value));
         })
     }
 
-    update_broker(broker, id: number = this._brokers.length){
+    update_broker(broker: any, id: number = this._brokers.length){
         if (this._brokers.length <=id){
             this.generate_broker(broker, id);
         }
@@ -132,17 +141,18 @@ export class StockMarket{
         else {
             this.set_broker(broker, id);
         }
+        this.callback();
     }
 
-    private generate_broker(broker_info, id: number){
+    private generate_broker(broker_info: any, id: number){
         broker_info.money = parseInt(broker_info.money);
         switch (broker_info.type) {
             case 'Afk':
                 new AfkBroker(broker_info.money, broker_info.name, this);
         }
         let broker = this._brokers[id];
-        let portfolio = [];
-        broker_info.stocks.forEach((stock)=>{
+        let portfolio: {name: string, quantity: number, stock: AbstractStock}[] = [];
+        broker_info.stocks.forEach((stock: any)=>{
             portfolio.push({
                 name: stock.name,
                 quantity: stock.quantity,
@@ -154,7 +164,7 @@ export class StockMarket{
         }
     }
 
-    private set_broker(broker_info, id: number){
+    private set_broker(broker_info: any, id: number){
         let broker_to_update = this._brokers[id];
         broker_to_update.name = broker_info.name;
     }
@@ -164,11 +174,13 @@ export class StockMarket{
         new BinomialStock(this,"Binomial Stock",1000, 10, 2);
         new UniformStock(this,"Uniform Stock",1000, 5, 0, 10);
         new BernoulliStock(this,"Bernoulli Stock",1000, 1, 10);
+        this.callback();
         return this._stocks.length;
     }
 
     addDummyBrokers(){
         new AfkBroker(100,"Afk Broker", this);
+        this.callback();
         return this._brokers.length;
     }
 
@@ -176,11 +188,13 @@ export class StockMarket{
         return this._stocks;
     }
 
-    get_stock_by_name(name): AbstractStock{
-        for (let i = 0; i < this._stocks.length; i++){
+    get_stock_by_name(name: string): AbstractStock{
+        let i: number;
+        for (i = 0; i < this._stocks.length; i++){
             if (this._stocks[i].name === name)
                 return this._stocks[i];
         }
+        return this._stocks[i];
     }
 
     get brokers(): AbstractBroker[] {
@@ -191,6 +205,17 @@ export class StockMarket{
         return this._time;
     }
 
+    set on_update_callback(callback: any){
+        this._on_update_callback = callback;
+    }
+
+    private callback(){
+        if (this._on_update_callback){
+            this._on_update_callback();
+        }
+    }
+
+    private _on_update_callback: any;
     private _time: number;
     private _brokers: AbstractBroker[];
     private _stocks: AbstractStock[]

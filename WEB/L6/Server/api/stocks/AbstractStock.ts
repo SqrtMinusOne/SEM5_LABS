@@ -17,6 +17,7 @@ export abstract class AbstractStock{
         this._params = {};
         this._market = market;
         this._market.add_stock(this);
+        this._type = '';
     }
 
     price(time: number = this.values.length - 1): number{

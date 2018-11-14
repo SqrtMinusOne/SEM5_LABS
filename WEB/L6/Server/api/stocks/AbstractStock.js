@@ -10,6 +10,7 @@ var AbstractStock = /** @class */ (function () {
         this._params = {};
         this._market = market;
         this._market.add_stock(this);
+        this._type = '';
     }
     Object.defineProperty(AbstractStock.prototype, "quantity", {
         get: function () {

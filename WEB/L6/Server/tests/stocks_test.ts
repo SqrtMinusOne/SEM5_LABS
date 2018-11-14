@@ -38,7 +38,7 @@ describe('Stocks', ()=>{
     });
     it('Binomial Stock', ()=>{
         let stock: AbstractStock = new BinomialStock(new StockMarket(),"TEST2", 1,10, 2);
-        let price: number;
+        let price: number = 0;
         for (let i: number = 0; i < 1000; i++){
             price = stock.price(i);
             expect(price).not.undefined;
@@ -116,7 +116,8 @@ describe('Stock market', ()=>{
     it ('to JSON', ()=>{
         let market = new StockMarket();
         let len = market.addDummyStocks();
-        let stocks = market.toJSON()['stocks'];
+        //@ts-ignore
+        let stocks: any = market.toJSON()['stocks'];
         expect(stocks).to.have.length(len);
         for (let i:number = 0; i < len; i++) {
             expect(stocks[i]).to.ownProperty('params');
@@ -135,7 +136,7 @@ describe('Stock market', ()=>{
         broker.sell(50, stock);
         market.simulate_to_time(4);
         broker.sell(150, stock);
-        let market_states = market.toJSON(0, 5);
+        let market_states: any = market.toJSON(0, 5);
         expect(market_states[0].brokers[0].money).equal(10000);
         expect(market_states[1].brokers[0].money).equal(9000);
         expect(market_states[2].brokers[0].money).equal(8000);

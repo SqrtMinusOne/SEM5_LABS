@@ -1,24 +1,37 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require("express");
+var express = __importStar(require("express"));
 var winston_1 = require("./winston");
 var StockMarket_1 = require("./api/StockMarket");
-var fs = require("fs");
 var market_info = require('./json/market.json');
 var router = express.Router();
 exports.stock_router = router;
 var market = new StockMarket_1.StockMarket();
+exports.market = market;
 market.fromJSON(market_info);
 var dummy_market = new StockMarket_1.StockMarket();
 dummy_market.addDummyBrokers();
 dummy_market.addDummyStocks();
 function saveMarket() {
-    fs.writeFile('./json/market.json', JSON.stringify(market.toJSON(0)));
+    //   fs.writeFile('./json/market.json', JSON.stringify(market.toJSON(0)), (error)=>{
+    //       logger.error(error);
+    //   });
 }
 router.get('/market/:num([0-9]{1,})', function (req, res, next) {
     var day = parseInt(req.params.num);
     winston_1.logger.verbose("Getting day " + day);
     res.send(JSON.stringify(market.toJSON(day)));
+});
+router.get('/market', function (req, res, next) {
+    winston_1.logger.verbose("Getting last day");
+    res.send(JSON.stringify(market.toJSON()));
 });
 router.delete('/stock/:num([0-9]{1,})', function (req, res, next) {
     var id = parseInt(req.params.num);

@@ -14,7 +14,9 @@ dummy_market.addDummyBrokers();
 dummy_market.addDummyStocks();
 
 function saveMarket(){
-    fs.writeFile('./json/market.json', JSON.stringify(market.toJSON(0)));
+ //   fs.writeFile('./json/market.json', JSON.stringify(market.toJSON(0)), (error)=>{
+ //       logger.error(error);
+ //   });
 }
 
 router.get('/market/:num([0-9]{1,})', (req, res, next)=>{
@@ -22,6 +24,11 @@ router.get('/market/:num([0-9]{1,})', (req, res, next)=>{
     logger.verbose(`Getting day ${day}`);
     res.send(JSON.stringify(market.toJSON(day)));
 });
+
+router.get('/market', (req, res, next)=>{
+    logger.verbose(`Getting last day`);
+    res.send(JSON.stringify(market.toJSON()));
+})
 
 router.delete('/stock/:num([0-9]{1,})', (req, res, next)=>{
     const id = parseInt(req.params.num);
@@ -58,4 +65,4 @@ router.delete('/broker/:num([0-9]{1,})', (req, res, next)=>{
     res.send({ok: true});
 });
 
-export {router as stock_router}
+export {router as stock_router, market}

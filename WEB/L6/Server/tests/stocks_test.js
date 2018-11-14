@@ -37,7 +37,7 @@ describe('Stocks', function () {
     });
     it('Binomial Stock', function () {
         var stock = new BinomialStock_1.BinomialStock(new StockMarket_1.StockMarket(), "TEST2", 1, 10, 2);
-        var price;
+        var price = 0;
         for (var i = 0; i < 1000; i++) {
             price = stock.price(i);
             chai_1.expect(price).not.undefined;
@@ -113,6 +113,7 @@ describe('Stock market', function () {
     it('to JSON', function () {
         var market = new StockMarket_1.StockMarket();
         var len = market.addDummyStocks();
+        //@ts-ignore
         var stocks = market.toJSON()['stocks'];
         chai_1.expect(stocks).to.have.length(len);
         for (var i = 0; i < len; i++) {

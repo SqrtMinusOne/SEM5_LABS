@@ -8,6 +8,7 @@ var AbstractBroker = /** @class */ (function () {
         this._portfolio = [{}];
         this._market = market;
         this._market.add_broker(this);
+        this._type = '';
     }
     AbstractBroker.prototype.get_portfolio = function (time) {
         if (this._portfolio.length > time) {

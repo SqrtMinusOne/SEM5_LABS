@@ -14,9 +14,11 @@ var StockMarket = /** @class */ (function () {
     }
     StockMarket.prototype.add_stock = function (stock) {
         this._stocks.push(stock);
+        this.callback();
     };
     StockMarket.prototype.add_broker = function (broker) {
         this._brokers.push(broker);
+        this.callback();
     };
     StockMarket.prototype.fromJSON = function (obj) {
         var _this = this;
@@ -28,6 +30,7 @@ var StockMarket = /** @class */ (function () {
         obj.brokers.forEach(function (broker_info) {
             _this.update_broker(broker_info);
         });
+        this.callback();
     };
     StockMarket.prototype.toJSON = function (start_time, end_time) {
         if (start_time === void 0) { start_time = this.time; }
@@ -54,6 +57,9 @@ var StockMarket = /** @class */ (function () {
             brokers: brokers,
         };
     };
+    StockMarket.prototype.simulate_one_day = function () {
+        this.simulate_to_time(++this._time);
+    };
     StockMarket.prototype.simulate_to_time = function (new_time) {
         winston_1.logger.info("Simulating from time " + this._time + " to time: " + new_time + " ");
         var _loop_1 = function (i) {
@@ -71,6 +77,7 @@ var StockMarket = /** @class */ (function () {
             });
         }
         this._time = new_time;
+        this.callback();
     };
     StockMarket.prototype.update_stock = function (stock, id) {
         if (id === void 0) { id = this._stocks.length; }
@@ -83,6 +90,7 @@ var StockMarket = /** @class */ (function () {
         else {
             this.set_stock(stock, id);
         }
+        this.callback();
     };
     StockMarket.prototype.generate_stock = function (stock_info, id) {
         stock_info.start_price = parseInt(stock_info.start_price);
@@ -126,6 +134,7 @@ var StockMarket = /** @class */ (function () {
         else {
             this.set_broker(broker, id);
         }
+        this.callback();
     };
     StockMarket.prototype.generate_broker = function (broker_info, id) {
         var _this = this;
@@ -156,10 +165,12 @@ var StockMarket = /** @class */ (function () {
         new BinomialStock_1.BinomialStock(this, "Binomial Stock", 1000, 10, 2);
         new UniformStock_1.UniformStock(this, "Uniform Stock", 1000, 5, 0, 10);
         new BernoulliStock_1.BernoulliStock(this, "Bernoulli Stock", 1000, 1, 10);
+        this.callback();
         return this._stocks.length;
     };
     StockMarket.prototype.addDummyBrokers = function () {
         new AfkBroker_1.AfkBroker(100, "Afk Broker", this);
+        this.callback();
         return this._brokers.length;
     };
     Object.defineProperty(StockMarket.prototype, "stocks", {
@@ -170,10 +181,12 @@ var StockMarket = /** @class */ (function () {
         configurable: true
     });
     StockMarket.prototype.get_stock_by_name = function (name) {
-        for (var i = 0; i < this._stocks.length; i++) {
+        var i;
+        for (i = 0; i < this._stocks.length; i++) {
             if (this._stocks[i].name === name)
                 return this._stocks[i];
         }
+        return this._stocks[i];
     };
     Object.defineProperty(StockMarket.prototype, "brokers", {
         get: function () {
@@ -189,6 +202,18 @@ var StockMarket = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(StockMarket.prototype, "on_update_callback", {
+        set: function (callback) {
+            this._on_update_callback = callback;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    StockMarket.prototype.callback = function () {
+        if (this._on_update_callback) {
+            this._on_update_callback();
+        }
+    };
     return StockMarket;
 }());
 exports.StockMarket = StockMarket;
