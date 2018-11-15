@@ -14,9 +14,10 @@ export class SocketController {
 
     sockets(socket: any) {
         this.clients.push(socket);
-        socket.on('connected', function (msg: any) {
+        socket.on('connected', (msg: any) => {
             socket.name = msg.name;
             logger.verbose(`${socket.name} connected`);
+            this.market.set_online(msg.name, true);
         })
         
         this.market.on_update_callback = () =>{
@@ -27,6 +28,7 @@ export class SocketController {
 
         socket.on('disconnect', () => {
             logger.verbose(`${socket.name} disconnected`);
+            this.market.set_online(socket.name, false);
             let i = this.clients.indexOf(socket);
             this.clients.splice(i, 1);
         })
@@ -42,6 +44,14 @@ export class SocketController {
         socket.on('reset_market', (msg: any)=>{
             this.resetMarket();
         })
+        socket.on('buy_deal', (msg: any)=>{
+            logger.verbose(`${msg.broker_name} buys ${msg.quantity} of ${msg.stock_name}`);
+            this.market.processBuyDeal(msg.stock_name, msg.broker_name, parseInt(msg.quantity));
+        })
+        socket.on('sell_deal', (msg: any)=>{
+            logger.verbose(`${msg.broker_name} sells ${msg.quantity} of ${msg.stock_name}`);
+            this.market.processSellDeal(msg.stock_name, msg.broker_name, parseInt(msg.quantity));
+        })
     }
 
     private io: socket.Server
@@ -52,6 +62,7 @@ export class SocketController {
     private resetMarket(): any {
         logger.verbose('Reset market received');
         clearInterval(this.timerId);
+        this.market.reset();
     }
 
     private stopMarket(): any {

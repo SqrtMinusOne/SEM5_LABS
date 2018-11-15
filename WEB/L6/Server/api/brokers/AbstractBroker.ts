@@ -10,6 +10,7 @@ export abstract class AbstractBroker{
         this._market = market;
         this._market.add_broker(this);
         this._type = '';
+        this._online = false;
     }
 
     abstract makeDecision():{[name:string]: {quantity: number, stock: AbstractStock}}
@@ -66,6 +67,7 @@ export abstract class AbstractBroker{
     sell(quantity: number, stock: AbstractStock): boolean{
         if (this.portfolio[stock.name].quantity >= quantity){
             this.portfolio[stock.name].quantity -= quantity;
+            console.log(quantity, this.portfolio[stock.name].quantity);
             this._money += stock.price() * quantity;
             if (this.portfolio[stock.name].quantity === 0){
                 delete this.portfolio[stock.name];
@@ -87,6 +89,7 @@ export abstract class AbstractBroker{
         return {
             name: this.name,
             type: this.type,
+            online: this.online,
             money: this.get_money(time),
             money_in_stocks: this.get_money_in_stocks(time),
             total_money: this.total_money,
@@ -104,12 +107,17 @@ export abstract class AbstractBroker{
         return money_in_shares;
     }
 
+    reset(){
+        this._money = this._start_money;
+        this._portfolio = [this.get_portfolio(0)]
+    }
+
     get money_in_stocks(): number{
         return this.get_money_in_stocks(this._portfolio.length - 1);
     }
 
     get total_money(): number{
-        return this._start_money;
+        return this._money + this.money_in_stocks;
     }
 
     get_money(time: number = this._portfolio.length - 1): number{
@@ -134,10 +142,19 @@ export abstract class AbstractBroker{
         this._name = value;
     }
 
+    get online(): boolean{
+        return this._online;
+    }
+
+    set online(value: boolean){
+        this._online = value;
+    }
+
     private _name: string;
     protected _type: string;
     protected _portfolio: {[name:string]: {quantity: number, stock: AbstractStock}}[];
     private _money: number;
     protected _market: StockMarket;
+    private _online: boolean;
     private _start_money: number;
 }

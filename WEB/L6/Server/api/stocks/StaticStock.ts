@@ -13,7 +13,6 @@ export class StaticStock extends AbstractStock{
     }
 
     calculate_price(time: number): number {
-        logger.info(`Static stock: calculating price ${time}. Values number: ${this.values.length}`);
         return this.values[0];
     }
 }

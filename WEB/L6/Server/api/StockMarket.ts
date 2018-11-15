@@ -62,7 +62,7 @@ export class StockMarket{
     }
 
     simulate_one_day(){
-        this.simulate_to_time(++this._time);
+        this.simulate_to_time(this._time+1);
     }
 
     simulate_to_time(new_time: number){
@@ -78,6 +78,17 @@ export class StockMarket{
             });
         }
         this._time = new_time;
+        this.callback();
+    }
+
+    reset(){
+        this._time = 0;
+        this._brokers.forEach((broker)=>{
+            broker.reset();
+        })
+        this._stocks.forEach((stock)=>{
+            stock.reset();
+        })
         this.callback();
     }
 
@@ -184,6 +195,20 @@ export class StockMarket{
         return this._brokers.length;
     }
 
+    processBuyDeal(stock_name: string, broker_name: string, quantity: number){
+        let stock = this.get_stock_by_name(stock_name);
+        let broker = this.get_broker_by_name(broker_name);
+        broker.buy(quantity, stock);
+        this.callback();
+    }
+
+    processSellDeal(stock_name: string, broker_name: string, quantity: number){
+        let stock = this.get_stock_by_name(stock_name);
+        let broker = this.get_broker_by_name(broker_name);
+        broker.sell(quantity, stock);
+        this.callback();
+    }
+
     get stocks(): AbstractStock[] {
         return this._stocks;
     }
@@ -195,6 +220,24 @@ export class StockMarket{
                 return this._stocks[i];
         }
         return this._stocks[i];
+    }
+
+    get_broker_by_name(name: string): AbstractBroker{
+        let i: number;
+        for (i = 0; i < this._brokers.length; i++){
+            if (this._brokers[i].name === name)
+                return this.brokers[i];
+        }
+        return this._brokers[i];
+    }
+
+    set_online(name: string, online: boolean){
+        let broker: AbstractBroker = this.get_broker_by_name(name);
+        if (broker){
+            logger.verbose(`Setting online: ${online} for ${broker.name}`);
+            broker.online = online;
+        }
+        this.callback();
     }
 
     get brokers(): AbstractBroker[] {

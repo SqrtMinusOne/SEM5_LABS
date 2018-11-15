@@ -219,25 +219,25 @@
     {
       "name": "Ivan",
       "type": "Afk",
-      "money": 1500,
+      "money": 150000,
       "money_in_stocks": 0,
-      "total_money": 1500,
+      "total_money": 150000,
       "stocks": []
     },
     {
       "name": "George",
       "type": "Afk",
-      "money": 2000,
+      "money": 200000,
       "money_in_stocks": 0,
-      "total_money": 2000,
+      "total_money": 200000,
       "stocks": []
     },
     {
       "name": "Abraham",
       "type": "Afk",
-      "money": 3000,
+      "money": 300000,
       "money_in_stocks": 0,
-      "total_money": 3000,
+      "total_money": 300000,
       "stocks": []
     }
   ]

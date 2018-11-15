@@ -76,6 +76,11 @@ export abstract class AbstractStock{
             this._params[name] = {text, getter, setter}
     }
 
+    reset(){
+        this._available_quantity = [this._available_quantity[0]];
+        this.values = [this.values[0]];
+    }
+
     get params(): { [p: string]: { text: string; getter: () => number; setter: (value: number) => void } } {
         return this._params;
     }
