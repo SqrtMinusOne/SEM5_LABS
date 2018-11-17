@@ -1,8 +1,9 @@
 html
     head
         title Аукцион картин
-        link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/style.min.css')
+        script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js')
 
     body(class='body_container')
         nav(class='navbar navbar-expand-sm navbar-dark main_navbar')
@@ -32,7 +33,7 @@ html
                     block sidebar
                 div(class='col-sm-12 col-md-9 content')
                     block content
-        script(src='/lib/jquery/jquery-3.3.1.min.js')
-        script(src='/lib/popper/popper.js')
-        script(src='/lib/bootstrap/js/bootstrap.js')
+
+        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js')
+        script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js')
         block scripts

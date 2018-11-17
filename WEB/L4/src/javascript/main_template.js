@@ -1,6 +1,6 @@
 // @flow
 
-Sentry.init({ dsn: 'https://c9702d23fe224736b9d6ad3f867d68da@sentry.io/1310383' });
+//Sentry.init({ dsn: 'https://c9702d23fe224736b9d6ad3f867d68da@sentry.io/1310383' });
 
 function logout() {
     $.ajax({
