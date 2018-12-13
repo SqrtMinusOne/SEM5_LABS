@@ -1,0 +1,80 @@
+Proc num: 1:
+real    0m7,135s
+user    0m7,132s
+sys     0m0,000s
+Proc num: 2:
+real    0m3,623s
+user    0m7,223s
+sys     0m0,000s
+Proc num: 3:
+real    0m2,439s
+user    0m7,211s
+sys     0m0,004s
+Proc num: 4:
+real    0m1,812s
+user    0m7,226s
+sys     0m0,000s
+Proc num: 5:
+real    0m1,741s
+user    0m7,848s
+sys     0m0,008s
+Proc num: 6:
+real    0m1,455s
+user    0m8,193s
+sys     0m0,004s
+Proc num: 7:
+real    0m1,279s
+user    0m8,641s
+sys     0m0,000s
+Proc num: 8:
+real    0m1,168s
+user    0m8,903s
+sys     0m0,004s
+Proc num: 9:
+real    0m1,282s
+user    0m8,762s
+sys     0m0,008s
+Proc num: 10:
+real    0m1,206s
+user    0m8,797s
+sys     0m0,008s
+Proc num: 11:
+real    0m1,229s
+user    0m8,753s
+sys     0m0,004s
+Proc num: 12:
+real    0m1,227s
+user    0m8,825s
+sys     0m0,000s
+Proc num: 13:
+real    0m1,193s
+user    0m8,824s
+sys     0m0,004s
+Proc num: 14:
+real    0m1,214s
+user    0m8,853s
+sys     0m0,008s
+Proc num: 15:
+real    0m1,221s
+user    0m8,818s
+sys     0m0,008s
+Proc num: 16:
+real    0m1,190s
+user    0m8,819s
+sys     0m0,008s
+Proc num: 17:
+real    0m1,211s
+user    0m8,805s
+sys     0m0,004s
+Proc num: 18:
+real    0m1,178s
+user    0m8,825s
+sys     0m0,000s
+Proc num: 19:
+real    0m1,190s
+user    0m8,833s
+sys     0m0,000s
+Proc num: 20:
+real    0m1,161s
+user    0m8,841s
+sys     0m0,000s

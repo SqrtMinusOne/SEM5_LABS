@@ -1,0 +1,44 @@
+==================
+len: 100000
+Parallel:
+
+real    0m0,009s
+user    0m0,015s
+sys     0m0,008s
+Consecutive:
+real    0m0,016s
+user    0m0,011s
+sys     0m0,004s
+==================
+len: 1000000
+Parallel:
+
+real    0m0,053s
+user    0m0,138s
+sys     0m0,009s
+Consecutive:
+real    0m0,130s
+user    0m0,129s
+sys     0m0,000s
+==================
+len: 10000000
+Parallel:
+
+real    0m0,493s
+user    0m1,385s
+sys     0m0,024s
+Consecutive:
+real    0m1,296s
+user    0m1,271s
+sys     0m0,024s
+==================
+len: 100000000
+Parallel:
+
+real    0m5,131s
+user    0m15,475s
+sys     0m0,423s
+Consecutive:
+real    0m13,904s
+user    0m13,705s
+sys     0m0,192s
