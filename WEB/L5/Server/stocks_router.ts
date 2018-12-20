@@ -14,6 +14,7 @@ dummy_market.addDummyBrokers();
 dummy_market.addDummyStocks();
 
 function saveMarket(){
+    // @ts-ignore
     fs.writeFile('./json/market.json', JSON.stringify(market.toJSON(0)));
 }
 

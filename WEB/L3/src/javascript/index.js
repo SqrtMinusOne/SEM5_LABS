@@ -92,4 +92,6 @@ function delete_image(){
     })
 }
 
-get_gallery();
+$(document).ready(()=>{
+	get_gallery();
+})

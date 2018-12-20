@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Card } from '../page/structural'
 import { BrokerInfo } from '../brokers/broker_info'
 import { HalfWidth, Card } from '../page/structural'
 import { StockList } from '../stocks/stock_list'

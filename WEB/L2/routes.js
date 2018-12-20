@@ -17,14 +17,16 @@ function responseOK(){
         "message": ""
     }
 }
-function copyObject(src) {
-    return Object.assign({}, src);
-}
+
 function responseError(message){
     return {
         "ok": false,
         "message": message
     }
+}
+
+function copyObject(src) {
+	return Object.assign({}, src);
 }
 function checkBook(book){
     let today = new Date();

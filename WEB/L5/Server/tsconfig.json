@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": { "*": ["types/*"] },
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es5",
+    "types": ["node", "express", "mocha", "winston", "morgan", "cors"]
+  },
+  "include": [
+    "api/**/*",
+    "tests/**/*",
+    "app.ts",
+    "stocks_router.ts",
+    "winston.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

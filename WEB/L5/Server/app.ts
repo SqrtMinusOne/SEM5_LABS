@@ -10,6 +10,7 @@ const app = express();
 logger.verbose('Initialization');
 declare var process: any;
 logger.verbose(`Current working directory is ${process.cwd()}`);
+// @ts-ignore
 app.use(morgan('combined', {stream: logger_stream}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

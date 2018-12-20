@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { StocksComponent } from './stocks/stocks.component';
-import { StockInfoComponent } from './stock-info/stock-info.component';
 import {SidebarModule} from 'ng-sidebar';
 import { ControlsComponent } from './controls/controls.component';
 import { BrokersComponent } from './brokers/brokers.component';
@@ -17,7 +16,6 @@ import { BrokersComponent } from './brokers/brokers.component';
         AppComponent,
         NavbarComponent,
         StocksComponent,
-        StockInfoComponent,
         ControlsComponent,
         BrokersComponent,
     ],
